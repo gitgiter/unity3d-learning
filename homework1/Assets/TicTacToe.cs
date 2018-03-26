@@ -13,10 +13,15 @@ public class TicTacToe : MonoBehaviour {
     private int count;
     private int[,] state = new int[3, 3];
     private int[,] sequence = new int[3, 3];
+    private GUIStyle LabelStyle = new GUIStyle();
 
     // Use this for initialization
     void Start () {
         Restart();
+
+        LabelStyle.fontSize = 18;
+        LabelStyle.fontStyle = FontStyle.BoldAndItalic;
+        LabelStyle.normal.textColor = Color.yellow;
     }   
 
     // Update is called once per frame
@@ -102,7 +107,7 @@ public class TicTacToe : MonoBehaviour {
     {
         if (GUI.Button(new Rect(ml + bwh / 2 - 10, mt - 50, bwh, 30), "Restart")) Restart();
         if (GUI.Button(new Rect(ml + bwh * 3 / 2 + 10, mt - 50, bwh, 30), "Regret")) Regret(); 
-        GUI.Label(new Rect(ml, mt + 180, 3 * bwh, 30), LabelText(Check()));
+        GUI.Label(new Rect(ml, mt + 180, 3 * bwh, 30), LabelText(Check()), LabelStyle);
 
         for (int i = 0; i < 3; ++i)
         {
