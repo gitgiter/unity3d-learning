@@ -123,7 +123,7 @@ public class Uniform : MonoBehaviour {
         - 在太阳的中心防止一个点光源
         - 修改背景以显示阴影效果
     - 效果图  
-    ![solar1](solar1.jpg)
-    ![solar2](solar2.jpg)
+    ![solar1](Solar1.jpg)  
+    ![solar2](Solar2.jpg)
     - 对象结构  
-    ![solar3](solar3.jpg)
+    ![solar3](Solar3.jpg)
