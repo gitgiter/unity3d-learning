@@ -146,3 +146,10 @@ public class Uniform : MonoBehaviour {
     - UI
     - 计时
     - 计步
+- 效果图
+    - 游戏界面
+    ![PriestAndDevil1](PriestAndDevil1.jpg)
+    - 胜利界面
+    ![PriestAndDevil2](PriestAndDevil2.jpg)
+    - 失败界面
+    ![PriestAndDevil3](PriestAndDevil3.jpg)
