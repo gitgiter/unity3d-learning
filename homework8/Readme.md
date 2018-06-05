@@ -460,7 +460,7 @@ void IniAll()
 ---
 ## 其他
 - 以上为个人理解，可能有误，仅供参考。
-- 如感兴趣，可访问笔者Gayhub博客地址---[传送门](https://gitgiter.github.io/2018/05/28/Unity3d-hw7-%E7%B2%92%E5%AD%90%E7%B3%BB%E7%BB%9F/)
+- 如感兴趣，可访问笔者Gayhub博客地址---[传送门](https://gitgiter.github.io)
 - 视频演示地址---[传送门](https://www.bilibili.com/video/av24424927/)
-- csdn博客地址---[传送门]()
+- csdn博客地址---[传送门](https://blog.csdn.net/Wonderful_sky/article/details/80589009)
 ---
