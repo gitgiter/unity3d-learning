@@ -1,4 +1,4 @@
-# Unity3d实战之粒子系统
+# Unity3d实战之背包系统
 ## 选题要求
 参考unity官网的背包系统例子，实现一个简单的背包系统
 
@@ -23,30 +23,31 @@
     - Clipping Planes：剪裁平面，摄像机的渲染范围。Near为最近的点，Far为最远的点
 - 粒子系统
     粒子系统有许多大模块，比如最常用的有初始化模块、发射模块、粒子群形状模块，颜色随存活时间、速度变化的模块等。方便起见这里再把上次的粒子系统贴一遍。
-    |参数|功能|
-    |:---:|:---:|
-    |持续时间（Duration）|粒子系统发射粒子的持续时间|
-    |循环（Looping）|粒子系统是否循环|
-    |预热（Prewarm）|当looping开启时，才能启动预热（Prewarm），游戏开始时粒子已经发射了一个周期|
-    |初始延迟（Start Delay）|粒子系统发射粒子之前的延迟。注意在prewarm（预热）启用下不能使用此项|
-    |初始生命（Start Lifetime）|以秒为单位，粒子存活数量|
-    |初始速度（Start Speed）|粒子发射时的速度|
-    |初始大小（Start Size）|粒子发射时的大小|
-    |初始旋转（Start Rotation）|粒子发射时的旋转值|
-    |初始颜色（Start Color）|粒子发射时的颜色|
-    |重力修改器（Gravity Modifier）|粒子在发射时受到的重力影响|
-    |继承速度（Inherit Velocity）|控制粒子速率的因素将继承自粒子系统的移动（对于移动中的粒子系统）|
-    |模拟空间（Simulation Space）|粒子系统在自身坐标系还是世界坐标系|
-    |唤醒时播放（Play On Awake）|如果启用粒子系统当在创建时，自动开始播放|
-    |最大粒子数（Max Particles）|粒子发射的最大数量|
+
+|参数|功能|
+|:---:|:---:|
+|持续时间（Duration）|粒子系统发射粒子的持续时间|
+|循环（Looping）|粒子系统是否循环|
+|预热（Prewarm）|当looping开启时，才能启动预热（Prewarm），游戏开始时粒子已经发射了一个周期|
+|初始延迟（Start Delay）|粒子系统发射粒子之前的延迟。注意在prewarm（预热）启用下不能使用此项|
+|初始生命（Start Lifetime）|以秒为单位，粒子存活数量|
+|初始速度（Start Speed）|粒子发射时的速度|
+|初始大小（Start Size）|粒子发射时的大小|
+|初始旋转（Start Rotation）|粒子发射时的旋转值|
+|初始颜色（Start Color）|粒子发射时的颜色|
+|重力修改器（Gravity Modifier）|粒子在发射时受到的重力影响|
+|继承速度（Inherit Velocity）|控制粒子速率的因素将继承自粒子系统的移动（对于移动中的粒子系统）|
+|模拟空间（Simulation Space）|粒子系统在自身坐标系还是世界坐标系|
+|唤醒时播放（Play On Awake）|如果启用粒子系统当在创建时，自动开始播放|
+|最大粒子数（Max Particles）|粒子发射的最大数量|
 
 ## 实现步骤
 - 第一步，搭建UI界面。新建一个画布（Canvas），再创建一个Panel容器，里面包含UI界面的所有UI控件，比如背包区的九个格子和装备区的三个格子，每个格子都是一个Button控件，背包区和装备区的这些按钮的父级分别是Bag和Equip两个空对象，主要是为了添加GridLayout控件来控制子对象的布局，以及相应的控制脚本。基本的控件创建好之后，将画布设置成UI层，接着再创建一个保存鼠标图片的Image控件，这是为了暂存移动的图片达到交换目的，最后创建一个专门渲染UI层的摄像机，将其Culling Mask设置成UI层。这样UI层的搭建基本完成，剩下的就是对控件位置、大小等的参数调整，以及更改控件的图片。这里要注意的一点是，**添加图片时必须先把原来的图片转成Sprite类型才可以被Image组件识别**。  
 搭建完成后的文件结构  
 ![](img/step1.png)  
 UI Camera设置  
-![](img/step1_2.png)  
-GridLayout组件的设置  
+![](img/step1_2.png)   
+GridLayout组件的设置   
 ![](img/step1_3.png)
 - 第二步，搭建背景界面。这个比布置UI界面容易多了。为了让背景有点简单的动态特效，这里用到了一点粒子系统。首先新建一个空对象scene，然后右键scene->Effects->Particle System，便可把例子系统添加为其子对象。接着再新建一个空对象，用来显示背景图片，修改其Sprite Renderer的Sprite为要添加的背景图片即可。最后把主摄像机放到这个空对象下面，其渲染的层是默认层，无需修改。要注意的是必须确保UI层的渲染要介于背景层渲染和英雄层渲染之间，用摄像机的深度Depth控制。  
 搭建完成后的文件结构  
@@ -427,40 +428,13 @@ public class Equip : MonoBehaviour {
 |处理前|![](img/weapon1.jpg)|![](img/weapon2.jpg)|![](img/weapon3.jpg)|
 |处理后|![](img/weapon1.png)|![](img/weapon2.png)|![](img/weapon3.png)|
 
-- 第十步，初始化所有粒子。这里主要随机产生一些粒子的信息，比如粒子半径，角度，大小等。
-```csharp
-void IniAll()
-{                
-    for (int i = 0; i < count; ++i)
-    {   
-        // 随机每个粒子半径，集中于平均半径附近  
-        float midRadius = 8.0f;
-        float radius = Random.Range(midRadius - 2, midRadius + 2);
-
-        // 随机每个粒子的角度  
-        float angle = Random.Range(0, 360);
-        // 转换成弧度制
-        float radian = angle / 180 * Mathf.PI;
-
-        // 随机每个粒子的大小
-        float size = Random.Range(0.01f, 0.03f);
-
-        info[i] = new ParticleInfo(radius, angle);            
-
-        particleArr[i].position = new Vector3(info[i].radius * Mathf.Cos(radian), 0f, info[i].radius * Mathf.Sin(radian));
-        particleArr[i].size = size;            
-    }
-    // 通过初始化好的粒子数组设置粒子系统
-    particleSys.SetParticles(particleArr, particleArr.Length);
-}
-```
 - 最后一步。核对所有代码挂载情况、文件结构以及摄像机的渲染情况，耐心慢慢调参。调好合适的位置后变可以正常的运行了。到此便和一开始展示的效果完全一致了。  
 ![](img/GIF.gif)
 
 ---
 ## 其他
 - 以上为个人理解，可能有误，仅供参考。
-- 如感兴趣，可访问笔者Gayhub博客地址---[传送门](https://gitgiter.github.io)
+- 如感兴趣，可访问笔者Gayhub博客地址---[传送门](https://gitgiter.github.io/2018/06/06/Unity3d-hw8-%E8%83%8C%E5%8C%85%E7%B3%BB%E7%BB%9F/)
 - 视频演示地址---[传送门](https://www.bilibili.com/video/av24424927/)
 - csdn博客地址---[传送门](https://blog.csdn.net/Wonderful_sky/article/details/80589009)
 ---
