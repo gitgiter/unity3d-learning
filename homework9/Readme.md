@@ -1,3 +1,5 @@
+- 效果  
+![](img/GIF.gif)
 - 视频  
 [https://www.bilibili.com/video/av25227554/](https://www.bilibili.com/video/av25227554/)
 - 博客  
