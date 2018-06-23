@@ -5,6 +5,8 @@
 ## 1. 游戏简介
 一个简单的联机冰球对战小游戏，双方可在自己的视角分别控制
 
+---
+
 ## 2. 效果
 - 静态图
 
@@ -33,7 +35,7 @@
     - **网络游戏对象（Networked GameObjects）** ：在服务器上注册，由孵化（也叫派生）系统（Spawning System）管理的对象，它必须包含 NetworkIdentity 组件，并用 NetworkBehaviour 脚本编程。
     - **玩家游戏对象（player GameObjects）** ：是特殊的网络游戏对象，指一个 client 加入网络游戏，服务器创建并孵化到客户端，由玩家控制的游戏对象。客户端代码可以控制它们的状态，并自动有服务器同步到其他玩家的客户端。例如：联网赛车游戏，每个玩家都有属于自己的赛车。
     - 关系图  
-    ![](img/spawn.jpg)
+    ![](img/spawn.png)
 
 ### 3.3 unet基本组件
 
@@ -367,7 +369,7 @@ public class Ball : MonoBehaviour {
 前面说了这么多场景，不如先来做一下场景。这个场景做法因人而异，因为场景也比较简单，所以自己手动搭了一个，当然调参数还是非常繁琐的，要耐心点。这里我就说一下我的场景的架构。
 - 架构一览图
 
-![](img/desk.png)
+![](img/desk_structure.png)
 
 - Plane就是桌面，没改名字，和Walls并列。
 - Walls是旁边的墙（桌沿）的组合，为空对象。
@@ -542,12 +544,12 @@ public class UserGUI : MonoBehaviour
 - 按 Build and Run 按钮创建构建。保存可执行文件为IceBall。
 - 编译后的独立程序将启动，并显示分辨率选择对话框。
 - 选择 windowed 复选框和较低的分辨率（为保持良好的流畅性），如800x600。
-- 运行并连接（两个应用只要是一个当主机，一个当客户机即可）
+- 运行并连接（两个应用只要是一个当主机，一个当客户机即可）。
     - 点击Play按钮，程序将启动并显示 NetworkManager HUD 的UI界面。
     - 从 NetworkManagerHUD 用户界面中，选择 LAN HOSTED 作为局域网主机启动。
     - 切换回编辑器，点击运行按钮进入运行模式。
     - 从 NetworkManagerHUD 用户界面中，选择 LAN Client 作为客户端连接到主机
-- 这时会发现就出现最开始的界面了
+- 这时会发现就出现最开始的界面了，接下来就可以尽情地玩耍了。
 
 ![](img/scene.png)
 
@@ -566,12 +568,12 @@ public class UserGUI : MonoBehaviour
 
 - Github地址  
 
-[https://github.com/gitgiter/unity3d-learning/tree/master/homework9](https://github.com/gitgiter/unity3d-learning/tree/master/homework9)
+[https://github.com/gitgiter/unity3d-learning/tree/master/homework10](https://github.com/gitgiter/unity3d-learning/tree/master/homework10)
 
 - Github博客地址
 
-[]()
+[https://gitgiter.github.io/](https://gitgiter.github.io/)
 
 - CSDN博客地址
 
-[]()
+[https://blog.csdn.net/Wonderful_sky/article/details/80788546](https://blog.csdn.net/Wonderful_sky/article/details/80788546)
